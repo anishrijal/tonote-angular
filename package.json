@@ -1,16 +1,25 @@
 {
   "name": "angulartodo",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "bower": "^1.7.9",
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "mongoose": "^4.6.5"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anishrijal/tonote-angular.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anishrijal/tonote-angular/issues"
+  },
+  "homepage": "https://github.com/anishrijal/tonote-angular#readme",
+  "description": ""
 }
