@@ -1,61 +1,59 @@
 angular.module('notesApp.controllers', [])
 
-  .controller('allNotesCtrl',function($scope, $state, $stateParams, Note) {
+  .controller('allNotesCtrl',function($scope,  Note) {
 
+    $scope.notes = Note.getNotes;
 
-    $scope.notes = Note.query();
-
-    var id =$stateParams.id;
-    var note = Note.getOne();
-
-    $scope.deleteNote = function(note) {
-    note.$delete(note);
-    };
-    $state.go('list');
-
-    // $scope.deleteNote = function(note) {
-    //   note.$delete().then(function(){
-    //       $scope.notes.splice($scope.notes.indexOf(note),1);
-    //   });
-    //   $state.go('list');
-    // }
+    $scope.deleteNote = Note.deleteNote;
   })
+  .controller('addCtrl', function($scope, $state, $stateParams, Note) {
 
-.controller('addCtrl', function($scope, $state, Note) {
-    $scope.state = new Note();
+      $scope.save = Note.addNote;
 
-    $scope.cancel = function(){
-      $state.go('list');
-    }
-
-    $scope.save = function(note) {
-        Note.create(note)
-              // new $scope.Note(note).$save().then(function (newNote) {
-              //       $scope.notes.push(newNote);
+      $scope.cancel = function(){
         $state.go('list');
-        };
+      }
+    })
+  .controller('editCtrl', function($scope, $state,  $stateParams, Note) {
 
-  })
-.controller('editCtrl', function($scope, $state, $stateParams, Note) {
 
-  var id =$stateParams.id;
 
-  if(id){
-    var note = Note.getOne(id);
-    $scope.note._id = note._id;
-    $scope.note.title = note.title;
-    $scope.note.description = note.description;
-  }
+    // $scope.note = Note.show({id:$stateParams._id});
+    // //   $scope.note = data;
+    // // });
+    // $scope.save =function(){
+    //   Note.update($scope.note);
+    //     $state.go('list');
+    //   };
 
-  $scope.cancel= function(){
-    $state.go('list');
-  }
-  console.log("inside edit");
-  $scope.save = function(note) {
-    Note.save(note);
-    // $scope.note.$update(function() {
+    $scope.note = $state.current.locals.note;
+    $scope.save =function(note){
+      Note.update({id: note.id}, note).promise.then(function(){
+        $state.go('list');
+      });
+    //
+    // //     $state.go('list');
+    // //   };
+    //
+    $scope.cancel= function(){
       $state.go('list');
-    
-  };
+  }
+    };
 
-});
+
+  });
+
+
+// studentsManagement.controller("stController", [
+// "$scope", "$route","$rootScope","stDataService","$location",
+// 	function ($scope, $route,$rootScope,stDataService,$location) {
+//         $scope.student = $route.current.locals.student;
+//         $rootScope.title = "Student Info -" + $scope.student.Name;
+//         $scope.updateInfo = function(student) {
+//             stDataService.update({ id: student.Id }, student).$promise.then(function() {
+//                 $location.url("/");
+//                 alertify.log("Updated Info");
+//             });
+//         };
+//     }
+// ]);

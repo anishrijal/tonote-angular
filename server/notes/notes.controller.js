@@ -14,13 +14,12 @@ var interface = {
     },
     save: function(req,res,next){
         var id = req.params.id;
+        console.log(req.body);
         if(!id) {
             id=new mongoose.mongo.ObjectID()
         }
-        console.log(id);
         Note.findOneAndUpdate({_id:id},req.body,{upsert:true,new:true})
             .then(function(notes){
-                console.log(notes)
                 res.send(notes)
             })
             .catch(function(err){

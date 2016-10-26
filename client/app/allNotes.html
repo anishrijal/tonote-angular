@@ -1,13 +1,13 @@
 <div class="panel-body">
-  <div ng-repeat="note in notes">
+  <div class="panel" ng-repeat="note in notes">
     <p>Title: {{note.title}}</p>
     <p>Description: {{note.description}}</p>
-    <p>Created on: </p>
+    <p>Created on: {{note.id}}</p>
     <p>Edited on: </p>
     <button ng-click="deleteNote(note)">
           Delete
       </button>
-      <button ui-sref="edit">
+      <button ui-sref="edit{{note.id}}">
           Edit
       </button>
   </div>

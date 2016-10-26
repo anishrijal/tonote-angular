@@ -2,6 +2,8 @@
 var express = require('express');
 var mongoose = require("mongoose");
 var notes = require('./server/notes');
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
 
 //express app
 var app =express();
@@ -15,8 +17,11 @@ db.once("open", function(){
     console.log("Database connected.")
 });
 
+app.use(bodyParser.urlencoded({'extended' : 'true'}));
+app.use(bodyParser.json());
 //middleware
-// app.use(morgan('dev'));
+
+app.use(morgan('dev'));
 app.use(express.static('client'));
 // app.use(express.static('client'));
 

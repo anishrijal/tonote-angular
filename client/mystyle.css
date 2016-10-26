@@ -1,0 +1,11 @@
+.mainIndex{
+  background: lightblue;
+}
+.panel{
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
+}
+.panel-body{
+    display: flex;
+}
