@@ -2,7 +2,7 @@ angular.module('notesApp.services', []).factory('Note', function($resource, $sta
 
   var resource = $resource('http://localhost:3000/notes/:id', { id: '@_id' });
   var notes = resource.query();
-
+  var editNote = null;
   return {
     getNotes: notes,
     deleteNote: function(note){
@@ -16,10 +16,25 @@ angular.module('notesApp.services', []).factory('Note', function($resource, $sta
             })
             $state.go('list');
           },
-    show: {method: 'GET'},
-    update:{
-      method : 'PUT',
-      params : {id : '@_id'}
+
+    update: function(){
+      editNote.$save().then(function(newNote){
+        notes[notes.indexOf(newNote)] = newNote;
+        $state.go('list');
+      })
+    },
+    setEditNote: function(note){
+      editNote =note;
+      $state.go('edit');
+    },
+    getEditNote: function(){
+      console.log(editNote);
+      return editNote;
+    },
+    cancelUpdate: function(){
+      editNote = null;
+      $state.go('list');
+
     }
 
   };

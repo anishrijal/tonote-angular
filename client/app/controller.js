@@ -4,6 +4,8 @@ angular.module('notesApp.controllers', [])
 
     $scope.notes = Note.getNotes;
 
+    $scope.edit = Note.setEditNote;
+
     $scope.deleteNote = Note.deleteNote;
   })
   .controller('addCtrl', function($scope, $state, $stateParams, Note) {
@@ -16,44 +18,10 @@ angular.module('notesApp.controllers', [])
     })
   .controller('editCtrl', function($scope, $state,  $stateParams, Note) {
 
+    $scope.cancel= Note.cancelUpdate;
 
+    $scope.note = Note.getEditNote();
 
-    // $scope.note = Note.show({id:$stateParams._id});
-    // //   $scope.note = data;
-    // // });
-    // $scope.save =function(){
-    //   Note.update($scope.note);
-    //     $state.go('list');
-    //   };
-
-    $scope.note = $state.current.locals.note;
-    $scope.save =function(note){
-      Note.update({id: note.id}, note).promise.then(function(){
-        $state.go('list');
-      });
-    //
-    // //     $state.go('list');
-    // //   };
-    //
-    $scope.cancel= function(){
-      $state.go('list');
-  }
-    };
-
+    $scope.save = Note.update;
 
   });
-
-
-// studentsManagement.controller("stController", [
-// "$scope", "$route","$rootScope","stDataService","$location",
-// 	function ($scope, $route,$rootScope,stDataService,$location) {
-//         $scope.student = $route.current.locals.student;
-//         $rootScope.title = "Student Info -" + $scope.student.Name;
-//         $scope.updateInfo = function(student) {
-//             stDataService.update({ id: student.Id }, student).$promise.then(function() {
-//                 $location.url("/");
-//                 alertify.log("Updated Info");
-//             });
-//         };
-//     }
-// ]);
