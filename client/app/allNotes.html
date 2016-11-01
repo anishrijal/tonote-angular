@@ -2,8 +2,8 @@
   <div class="panel2" ng-repeat="note in notes">
     <p>Title: {{note.title}}</p>
     <p>Description: {{note.description}}</p>
-    <p>Created on: </p>
-    <p>Edited on: </p>
+    <p class="created">Created on: {{note.date}}</p>
+    <p class="edited">Edited on: {{note.editDate}}</p>
     <button ng-click="deleteNote(note)">
           Delete
       </button>

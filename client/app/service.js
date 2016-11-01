@@ -3,6 +3,8 @@ angular.module('notesApp.services', []).factory('Note', function($resource, $sta
   var resource = $resource('http://localhost:3000/notes/:id', { id: '@_id' });
   var notes = resource.query();
   var editNote = null;
+  var createdDate = new Date();
+
   return {
     getNotes: notes,
     deleteNote: function(note){
@@ -13,22 +15,25 @@ angular.module('notesApp.services', []).factory('Note', function($resource, $sta
     addNote:  function(note) {
         new resource(note).$save().then(function (newNote) {
               notes.push(newNote);
+              newNote.date = createdDate;
             })
             $state.go('list');
           },
-
     update: function(){
+
       editNote.$save().then(function(newNote){
+        newNote.editDate = new Date();
         notes[notes.indexOf(newNote)] = newNote;
         $state.go('list');
       })
     },
     setEditNote: function(note){
+
       editNote =note;
+
       $state.go('edit');
     },
     getEditNote: function(){
-      console.log(editNote);
       return editNote;
     },
     cancelUpdate: function(){

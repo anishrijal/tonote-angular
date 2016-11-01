@@ -1,9 +1,9 @@
 <div class="panel">
     Title:<br />
-    <input ng-model="note.title" /><br />
+    <input class= "title" ng-model="note.title" /><br />
     Descirption:<br />
     <textarea class="form-control" ng-model="note.description"> </textarea><br />
     <button class="btn btn-primary" ng-click="save(note)">Save</button>
     <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
 </div>
-<!-- = new nowDate(); -->
+<ui-view></ui-view>
